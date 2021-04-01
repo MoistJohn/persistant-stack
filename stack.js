@@ -15,5 +15,13 @@ class Stack {
         if (this.isEmpty) { return; }
         this.#size--;
     }
+
+    peek() {
+        
+    }
+
+    revert() {
+
+    }
 }
 module.exports = { Stack }

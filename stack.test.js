@@ -32,3 +32,25 @@ test('pop on an empty stack should stay empty', () => {
     stack.pop();
     expect(stack.isEmpty).toBe(true);
 });
+
+test('revert on an empty stack stays empty', () => {
+    stack.revert();
+    expect(stack.isEmpty).toBe(true);
+});
+
+test('revert on a non empty stack, stays not empty', () => {
+    stack.push();
+    stack.revert();
+    expect(stack.isEmpty).toBe(false);
+});
+
+test('peek on an empty stack stays empty', () => {
+    stack.peek();
+    expect(stack.isEmpty).toBe(true);
+});
+
+test('peek on a non empty stack, stays not empty', () => {
+    stack.push();
+    stack.peek();
+    expect(stack.isEmpty).toBe(false);
+});
