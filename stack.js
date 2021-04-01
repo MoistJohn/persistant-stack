@@ -1,18 +1,18 @@
 class Stack {
-    #isEmpty = true;
+    #size = 0;
     constructor() {
     }
 
     get isEmpty() {
-        return this.#isEmpty;
+        return this.#size === 0;
     }
 
     push() {
-        this.#isEmpty = false;
+        this.#size++;
     }
 
     pop() {
-        return null;
+        if (this.#size) { this.#size--; }
     }
 }
 module.exports = { Stack }
