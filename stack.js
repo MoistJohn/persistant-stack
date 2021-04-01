@@ -1,6 +1,7 @@
 class Stack {
     #size = 0;
     #value = [];
+    #flipped = false;
     constructor() {
     }
 
@@ -10,13 +11,13 @@ class Stack {
 
     push(str) {
         this.#size++;
-        this.#value.push(str);
+        this.#flipped ? this.#value.unshift(str) : this.#value.push(str);
     }
 
     pop() {
         if (this.isEmpty) { return null; }
         this.#size--;
-        return this.#value.pop();
+        return this.#flipped ? this.#value.shift() : this.#value.pop();
     }
 
     peek() {
@@ -24,7 +25,7 @@ class Stack {
     }
 
     revert() {
-
+        this.#flipped = !this.#flipped;
     }
 }
 module.exports = { Stack }

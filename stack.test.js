@@ -93,6 +93,60 @@ test('push twice, pop twice should return 2nd value then 1st value', () => {
     const str2 = 'jumped over the lazy dog';
     stack.push(str1);
     stack.push(str2);
-    stack.pop();
+    expect(stack.pop()).toEqual(str2);
     expect(stack.pop()).toEqual(str1);
+});
+
+test('push once, revert, pop should return first value', () => {
+    const str = '';
+    stack.push(str);
+    stack.revert();
+    expect(stack.pop()).toEqual(str);
+});
+
+test('push twice, revert, pop should return 1st value then 2nd value', () => {
+    const str1 = 'The quick brown fox';
+    const str2 = 'jumped over the lazy dog';
+    stack.push(str1);
+    stack.push(str2);
+    stack.revert();
+    expect(stack.pop()).toEqual(str1);
+    expect(stack.pop()).toEqual(str2);
+});
+
+test('push twice, revert, revert, pop should return 2nd value then 1st value', () => {
+    const str1 = 'My name is Inigo Montoya';
+    const str2 = 'You killed my father';
+    stack.push(str1);
+    stack.push(str2);
+    stack.revert();
+    stack.revert();
+    expect(stack.pop()).toEqual(str2);
+    expect(stack.pop()).toEqual(str1);
+});
+
+test('push three times, revert, pop should return 1st value, revert, pop should return 4th value', () => {
+    const str1 = 'My name is Inigo Montoya';
+    const str2 = 'You killed my father';
+    const str3 = 'Prepare to die';
+    stack.push(str1);
+    stack.push(str2);
+    stack.push(str3);
+    stack.revert();
+    expect(stack.pop()).toEqual(str1);
+    stack.revert();
+    expect(stack.pop()).toEqual(str3);
+});
+
+test('push 1 and 2, revert, push 3 and 4, revert, pop all should be [4,3,1,2]', () => {
+    stack.push('1');
+    stack.push('2');
+    stack.revert();
+    stack.push('3');
+    stack.push('4');
+    stack.revert();
+    const expected = ['4', '3', '1', '2'];
+    const actual = [];
+    while (!stack.isEmpty) { actual.unshift(stack.pop()); }
+    expect(actual).toEqual(expected);
 });
