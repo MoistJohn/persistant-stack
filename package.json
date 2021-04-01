@@ -2,9 +2,9 @@
   "name": "stackserver",
   "version": "1.0.0",
   "description": "RESTful API of a persistant stack",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
-    "serve": "node index.js",
+    "serve": "node api.js",
     "test": "jest"
   },
   "author": "Yonatan Korem",
