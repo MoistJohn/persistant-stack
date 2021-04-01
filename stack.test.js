@@ -64,3 +64,35 @@ test('push string, pop should return an equal string', () => {
     stack.push(str);
     expect(stack.pop()).toEqual(str);
 });
+
+test('push string, peek should return an equal string', () => {
+    const str = '1123124';
+    stack.push(str);
+    expect(stack.peek()).toEqual(str);
+});
+
+test('push twice, pop should return last pushed value', () => {
+    const str1 = 'The quick brown fox';
+    const str2 = 'jumped over the lazy dog';
+    stack.push(str1);
+    stack.push(str2);
+    expect(stack.pop()).toEqual(str2);
+});
+
+test('push twice, peek twice should return the same value', () => {
+    const str1 = 'To infinity';
+    const str2 = 'and beyond';
+    stack.push(str1);
+    stack.push(str2);
+    stack.peek();
+    expect(stack.peek()).toEqual(str2);
+});
+
+test('push twice, pop twice should return 2nd value then 1st value', () => {
+    const str1 = 'The quick brown fox';
+    const str2 = 'jumped over the lazy dog';
+    stack.push(str1);
+    stack.push(str2);
+    stack.pop();
+    expect(stack.pop()).toEqual(str1);
+});

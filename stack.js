@@ -1,6 +1,6 @@
 class Stack {
     #size = 0;
-    #value = null;
+    #value = [];
     constructor() {
     }
 
@@ -10,17 +10,17 @@ class Stack {
 
     push(str) {
         this.#size++;
-        this.#value = str;
+        this.#value.push(str);
     }
 
     pop() {
         if (this.isEmpty) { return null; }
         this.#size--;
-        return this.#value;
+        return this.#value.pop();
     }
 
     peek() {
-        
+        return this.#value[this.#size - 1];
     }
 
     revert() {
