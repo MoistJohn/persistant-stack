@@ -12,7 +12,8 @@ class Stack {
     }
 
     pop() {
-        if (this.#size) { this.#size--; }
+        if (this.isEmpty) { return; }
+        this.#size--;
     }
 }
 module.exports = { Stack }
