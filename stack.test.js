@@ -54,3 +54,13 @@ test('peek on a non empty stack, stays not empty', () => {
     stack.peek();
     expect(stack.isEmpty).toBe(false);
 });
+
+test('pop an empty stack should return null', () => {
+    expect(stack.pop()).toBeNull();
+});
+
+test('push string, pop should return an equal string', () => {
+    const str = 'hello';
+    stack.push(str);
+    expect(stack.pop()).toEqual(str);
+});
