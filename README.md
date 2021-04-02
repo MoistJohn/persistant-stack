@@ -6,11 +6,12 @@ npm run serve
 ```
 ## API: Push value into the stack
 Method: ```POST```  
-URL: ```http://localhost:3000/<value>```
+URL: ```http://localhost:3000/```  
+Body: ```{ value: <value> }```
 
 cURL example:
 ```
-> curl -X POST http://localhost:3000/Yonatan
+> curl -X POST -d "value=yonatan" http://localhost:3000/
 Yonatan
 ```
 
@@ -34,7 +35,7 @@ cURL example:
 ```
 (assuming top of stack is "Jimmy")
 
-> curl http://localhost:3000/
+> curl http://localhost:3000/peek
 Jimmy
 ```
 
