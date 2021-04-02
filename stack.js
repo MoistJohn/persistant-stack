@@ -3,29 +3,39 @@ const FileSync = require("lowdb/adapters/FileSync");
 
 class Stack {
   #size = 0;
-  #value = [];
+  #stack = [];
   #flipped = false;
+  #db;
   constructor() {
 
     // TODO refactor db operations to another class
     const adapter = new FileSync("db.json");
-    const db = low(adapter);
+    this.#db = low(adapter);
 
     // Set some defaults (required if your JSON file is empty)
-    db.defaults({ stack: [], flipped: false, size: 0 }).write();
+    this.#db.defaults({ stack: [], flipped: false, size: 0 }).write();
 
-    this.#value = db.get('stack').value();
-    this.#flipped = db.get('flipped').value();
-    this.#size = db.get('size').value();
+    this.#stack = this.#db.get('stack').value();
+    this.#flipped = this.#db.get('flipped').value();
+    this.#size = this.#db.get('size').value();
   }
 
   get isEmpty() {
     return this.#size === 0;
   }
 
+  updateDB() {
+    this.#db
+    .set('stack', this.#stack)
+    .set('flipped', this.#flipped)
+    .set('size', this.#size)
+    .write();
+  }
+
   push(str) {
     this.#size++;
-    this.#flipped ? this.#value.unshift(str) : this.#value.push(str);
+    this.#flipped ? this.#stack.unshift(str) : this.#stack.push(str);
+    this.updateDB();
   }
 
   pop() {
@@ -33,15 +43,18 @@ class Stack {
       return null;
     }
     this.#size--;
-    return this.#flipped ? this.#value.shift() : this.#value.pop();
+    const value = this.#flipped ? this.#stack.shift() : this.#stack.pop();
+    this.updateDB();
+    return value;
   }
 
   peek() {
-    return this.#value[this.#size - 1];
+    return this.#stack[this.#size - 1];
   }
 
   revert() {
     this.#flipped = !this.#flipped;
+    this.updateDB();
   }
 }
 module.exports = { Stack };
